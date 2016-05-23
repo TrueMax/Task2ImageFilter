@@ -18,18 +18,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var slider: UISlider!
     
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-       
-        if let pickedInfo = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageView.image = pickedInfo
-            imageView.contentMode = .ScaleAspectFit
-            imageLoaded = pickedInfo
-        }
-        
-         dismissViewControllerAnimated(false, completion: nil)
-    }
-    
     @IBAction func pickAnImage(sender: UIButton) {
         
         let imagePicker = UIImagePickerController()
@@ -41,6 +29,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         presentViewController(imagePicker, animated: false, completion: nil)
         
     }
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        if let pickedInfo = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.image = pickedInfo
+            imageView.contentMode = .ScaleAspectFit
+            imageLoaded = pickedInfo
+            slider.enabled = true
+        }
+        
+        dismissViewControllerAnimated(false, completion: nil)
+    }
     
     @IBAction func sliderMoved(sender: UISlider) {
         
@@ -48,7 +47,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let context = CIContext(options: nil)
         let filter = CIFilter(name: "CIColorControls")
         
-        let ciImageLoaded = CIImage(CGImage: (self.imageLoaded?.CGImage)!)
+        let ciImageLoaded = CIImage(CGImage: (imageLoaded?.CGImage)!)
         filter?.setValue(ciImageLoaded, forKey: kCIInputImageKey)
         filter?.setValue(NSNumber(float: sender.value), forKey: kCIInputBrightnessKey)
         let cgImage = context.createCGImage((filter?.outputImage)!, fromRect: (filter?.outputImage?.extent)!)
@@ -85,6 +84,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         slider.minimumValue = -0.2
         slider.maximumValue = 0.2
         slider.value = 0.0
+        slider.enabled = false
         
     }
 
