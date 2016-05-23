@@ -61,6 +61,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func saveImageToPhotoLibrary(sender: UIButton) {
         if let savedImage = finalImage {
             UIImageWriteToSavedPhotosAlbum(savedImage, self, #selector(self.savingErrorFunc), nil)
+            slider.setValue(0.0, animated: true)
             
         } else {
             let controller = UIAlertController(title: "Фото не выбрано!", message: nil, preferredStyle: .Alert)
