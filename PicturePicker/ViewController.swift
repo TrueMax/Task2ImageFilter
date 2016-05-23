@@ -19,16 +19,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var slider: UISlider!
     
     
-    func picturePicker(sender: AnyObject){
-        
-        let imagePicker = UIImagePickerController()
-
-        imagePicker.delegate = self
-        imagePicker.sourceType = .PhotoLibrary // указал явно, но можно и не указывать, если подразумевается только Photolibrary, как источник 
-        imagePicker.allowsEditing = true
-        presentViewController(imagePicker, animated: true, completion: nil)
-    }
-    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
        
         if let pickedInfo = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -41,7 +31,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func pickAnImage(sender: UIButton) {
-        picturePicker(sender)
+        
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.delegate = self
+        imagePicker.sourceType = .PhotoLibrary // указал явно, но можно и не указывать, если подразумевается только Photolibrary, как источник
+        imagePicker.allowsEditing = true
+        
+        presentViewController(imagePicker, animated: false, completion: nil)
+        
     }
     
     @IBAction func sliderMoved(sender: UISlider) {
@@ -66,8 +64,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             
         } else {
             let controller = UIAlertController(title: "Фото не выбрано!", message: nil, preferredStyle: .Alert)
-            let action = UIAlertAction(title: "ВЫБРАТЬ ФОТО", style: .Default, handler: {[weak self] action in #selector(self!.picturePicker)
-            })
+            let action = UIAlertAction(title: "ВЫБРАТЬ ФОТО", style: .Default, handler: nil)
             controller.addAction(action)
             presentViewController(controller, animated: true, completion: nil)
         }

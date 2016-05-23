@@ -21,8 +21,7 @@
                                 <rect key="frame" x="250" y="40" width="100" height="30"/>
                                 <state key="normal" title="Выбрать фото"/>
                                 <connections>
-                                    <action selector="pickAnImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qm9-XR-x9c"/>
-                                    <action selector="picturePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gU4-V3-dML"/>
+                                    <action selector="pickAnImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wWM-WS-cIy"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5R9-NM-mQL">
